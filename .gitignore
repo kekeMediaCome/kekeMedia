@@ -1,0 +1,6 @@
+!.gitignore
+KeKePlayer/bin/*
+KeKePlayer/gen/*
+KeKePlayer/out/*
+KeKePlayer/.idea/*
+*.iml
