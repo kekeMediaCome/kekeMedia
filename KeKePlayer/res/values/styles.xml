@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="activity_title_text">
         <item name="android:textSize">19.0sp</item>
         <item name="android:textStyle">bold</item>
@@ -9,6 +10,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:text">@string/category_home</item>
     </style>
+
     <style name="main_tab_but_linear">
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
@@ -17,12 +19,14 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_weight">1.0</item>
     </style>
+
     <style name="channel_type_style">
         <item name="android:clickable">true</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">4.0dip</item>
     </style>
+
     <style name="account_more_list_text">
         <item name="android:textSize">20.0sp</item>
         <item name="android:textColor">#ffffffff</item>
@@ -33,6 +37,7 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <style name="ucenter_category_radiobutton">
         <item name="android:textSize">15.0sp</item>
         <item name="android:textColor">@drawable/cbox_ucenter_category_color_selector</item>
@@ -47,24 +52,29 @@
         <item name="android:button">@null</item>
         <item name="android:singleLine">true</item>
     </style>
+
     <style name="feedback_text_style">
         <item name="android:textSize">15.0sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+
     <style name="feedback_type_style" parent="@style/feedback_text_style">
         <item name="android:paddingLeft">27.0dip</item>
         <item name="android:layout_marginRight">15.0dip</item>
         <item name="android:button">@drawable/more_feedback_type_radiobutton</item>
     </style>
+
     <style name="about_title_style">
         <item name="android:textSize">13.0sp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:layout_marginBottom">5.0dip</item>
     </style>
+
     <style name="about_content_style">
         <item name="android:background">@drawable/more_about_content_bg</item>
         <item name="android:padding">15.0dip</item>
     </style>
+
     <style name="radio_btn">
         <item name="android:textColor">#ffffffff</item>
         <item name="android:gravity">center</item>
@@ -78,6 +88,7 @@
         <item name="android:button">@null</item>
         <item name="android:singleLine">true</item>
     </style>
+
     <style name="main_tab_bottom">
         <item name="android:textSize">@dimen/bottom_tab_font_size</item>
         <item name="android:textColor">#ffffffff</item>
@@ -91,6 +102,7 @@
         <item name="android:drawablePadding">@dimen/bottom_tab_padding_drawable</item>
         <item name="android:layout_weight">1.0</item>
     </style>
+
     <style name="detail_switcher">
         <item name="android:textSize">13.0sp</item>
         <item name="android:textColor">@drawable/cbox_ucenter_category_color_selector</item>
@@ -105,4 +117,13 @@
         <item name="android:button">@null</item>
         <item name="android:singleLine">true</item>
     </style>
+
+    <style name="dot_style">
+        <item name="android:layout_width">5dip</item>
+        <item name="android:layout_height">5dip</item>
+        <item name="android:background">@drawable/dot_normal</item>
+        <item name="android:layout_marginLeft">1.5dip</item>
+        <item name="android:layout_marginRight">1.5dip</item>
+    </style>
+
 </resources>

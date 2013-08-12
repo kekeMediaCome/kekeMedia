@@ -18,12 +18,12 @@ import com.example.kekeplayer.utils.DBUtils;
 import com.example.kekeplayer.utils.DateUtils;
 import com.example.kekeplayer.utils.KeKeUtils;
 
-import android.R.raw;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +77,7 @@ public class TvProgramAdapt extends BaseAdapter {
 		String string = null;
 		try {
 			Date date = DateUtils.sdf7.parse(parmString);
+			Log.e("stet", date.toLocaleString());
 			string = DateUtils.sdf5.format(date);
 		} catch (Exception e) {
 		}
@@ -269,13 +270,14 @@ public class TvProgramAdapt extends BaseAdapter {
 	public void playRemindBtn(Programs paramPrograms, ViewHolder viewHolder){
 		String show_time = paramPrograms.getShowtime()+":00";
 		String time_date = switchDate(show_time);
+		Log.e("stet", "switch "+time_date);
 		DBUtils dbUtils = new DBUtils(mContext);
 		String title = paramPrograms.getTitle();
-		if (dbUtils.getRemindStatus(title, time_date) == 0) {
+		//if (dbUtils.getRemindStatus(title, time_date) == 0) {
 			viewHolder.program_status.setText(R.string.tv_time_remind);
-		}else {
-			viewHolder.program_status.setText("已提醒");
-		}
+		//}else {
+			//viewHolder.program_status.setText("已提醒");
+		//}
 		viewHolder.program_status.setBackgroundResource(R.drawable.tv_time_remind);
 		viewHolder.program_name.setTextColor(mContext.getResources().getColor(R.color.white));
 		viewHolder.program_status.setTextColor(mContext.getResources().getColor(R.color.white));

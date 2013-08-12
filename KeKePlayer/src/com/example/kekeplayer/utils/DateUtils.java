@@ -8,7 +8,7 @@ public class DateUtils {
 	private static SimpleDateFormat sdf = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
 	private static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy");
-	static SimpleDateFormat sdf4 = new SimpleDateFormat("MMÔÂddÈÕHHÊ±mm·Ö");
+	static SimpleDateFormat sdf4 = new SimpleDateFormat("MMæœˆddæ—¥æ—¶mmåˆ†");
 	public static SimpleDateFormat sdf5 = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
 	public static SimpleDateFormat sdf7 = new SimpleDateFormat(

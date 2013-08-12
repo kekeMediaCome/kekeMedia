@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
     <FrameLayout
-        android:layout_width="fill_parent"
+        android:id="@+id/topFrame"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/phonetitlebar_bg" >
 
@@ -32,13 +33,12 @@
 
     <HorizontalScrollView
         android:id="@id/sv_btn"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
         android:background="@drawable/cbox_ucenter_category_bg"
         android:paddingBottom="5.0dip"
         android:paddingTop="5.0dip"
+        android:layout_below="@id/topFrame"
         android:scrollbars="none" >
 
         <RadioGroup
@@ -87,9 +87,8 @@
 
     <ListView
         android:id="@id/tv_detail_list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="0.0dip"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#ff2f2f2f"
         android:cacheColorHint="#00000000"
         android:divider="@drawable/cbox_uc_divider"
@@ -101,6 +100,8 @@
         android:scrollbars="none"
         android:transcriptMode="alwaysScroll"
         android:stackFromBottom="true"
-        android:scrollingCache="false" />
+        android:scrollingCache="false" 
+        android:layout_below="@id/sv_btn"
+        />
 
-</LinearLayout>
+</RelativeLayout>
