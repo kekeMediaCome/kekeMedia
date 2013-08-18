@@ -29,18 +29,15 @@ public class DBHelper extends SQLiteOpenHelper
   public static final String VIDEO_SIZE = "videoSize";
   public static final String VIDEO_TITLE = "videoTitle";
   public static final String WHICH_SECTION = "whichSection";
-  private Context mContext;
 
   public DBHelper(Context paramContext)
   {
     super(paramContext, NAME, null, 1);
-    this.mContext = paramContext;
   }
 
   public DBHelper(Context paramContext, String paramString, SQLiteDatabase.CursorFactory paramCursorFactory, int paramInt)
   {
     super(paramContext, paramString, paramCursorFactory, paramInt);
-    this.mContext = paramContext;
   }
 
   public void checkVersionCreate(SQLiteDatabase paramSQLiteDatabase, int paramInt)

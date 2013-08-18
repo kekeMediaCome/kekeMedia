@@ -14,12 +14,11 @@ public class StringUtils {
 		return false;
 	}
 	public static String splitByDot(List<Integer> paramList){
-		String str;
 		if ((paramList == null) || (paramList.size() == 0)){
 			return null;
 		}
 		StringBuffer localStringBuffer1 = new StringBuffer();
-		return "";
+		return localStringBuffer1.toString();
 	}
 }
 

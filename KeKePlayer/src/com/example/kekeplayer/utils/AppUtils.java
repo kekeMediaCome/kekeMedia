@@ -10,12 +10,12 @@ import com.example.kekeplayer.KeKeSetting;
 import com.example.kekeplayer.player.CMPlayer;
 
 public class AppUtils implements KeKeSetting {
-	private static String DEVICE_ID = null;
-	private static final String TAG = "AppUtils";
+	public static String DEVICE_ID = null;
+	public static final String TAG = "AppUtils";
 	public static final int isEverytime_Tip = 1;
 	public static final int isNotforever_Tip = 3;
 	public static final int isOnlyonce_Tip = 2;
-	private Handler handler;
+	public Handler handler;
 
 	public static void PlayLiveVideo(Activity startActity, String playUrl){
 		Intent intent = new Intent(startActity, CMPlayer.class);

@@ -1,9 +1,6 @@
 package com.example.kekeplayer;
 
-import java.util.List;
-
 import com.example.kekeplayer.R;
-import com.example.kekeplayer.type.PlayBackInfo;
 import com.example.kekeplayer.type.TvChannel;
 
 import io.vov.vitamio.LibsChecker;
@@ -33,7 +30,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 @SuppressLint("HandlerLeak")
-public class JieVideoPlayer extends Activity implements OnCompletionListener, OnInfoListener {
+public class JieLiveVideoPlayer extends Activity implements
+		OnCompletionListener, OnInfoListener {
 
 	private String mPath;
 	private String mTitle;
@@ -53,12 +51,8 @@ public class JieVideoPlayer extends Activity implements OnCompletionListener, On
 	private GestureDetector mGestureDetector;
 	private MediaController mMediaController;
 	private View mLoadingView;
-	TvChannel tvChannel= null;
-	PlayBackInfo playBackInfo;
-	List<PlayBackInfo> list;
-	int playCurrent_pos = 0;
-	int play_count_size = 0;
-	@SuppressWarnings("unchecked")
+	TvChannel tvChannel = null;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,11 +62,8 @@ public class JieVideoPlayer extends Activity implements OnCompletionListener, On
 			return;
 
 		// ~~~ 获取播放地址和标题
-		Bundle bundle = getIntent().getExtras();
-		list = (List<PlayBackInfo>)bundle.getSerializable("PlayBackInfo");
-		play_count_size = list.size();
-		mPath = list.get(playCurrent_pos).getUrl();
-		mTitle = "Test";
+		mPath = (String) getIntent().getStringExtra("path");
+		mTitle = (String) getIntent().getStringExtra("title");
 		// ~~~ 绑定控件
 		setContentView(R.layout.videoview);
 		mVideoView = (VideoView) findViewById(R.id.surface_view);
@@ -86,14 +77,14 @@ public class JieVideoPlayer extends Activity implements OnCompletionListener, On
 
 		// ~~~ 绑定数据
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-		mMaxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-		if (mPath.startsWith("http:")){
+		mMaxVolume = mAudioManager
+				.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+		if (mPath.startsWith("http:")) {
 			mVideoView.setVideoURI(Uri.parse(mPath));
-		}
-		else{
+		} else {
 			mVideoView.setVideoPath(mPath);
 		}
-		//设置显示名称
+		// 设置显示名称
 		mMediaController = new MediaController(this);
 		mMediaController.setFileName(mTitle);
 		mVideoView.setMediaController(mMediaController);
@@ -162,18 +153,19 @@ public class JieVideoPlayer extends Activity implements OnCompletionListener, On
 				mVideoView.setVideoLayout(mLayout, 0);
 			return true;
 		}
-		
+
 		@Override
 		public boolean onSingleTapUp(MotionEvent e) {
-			
+
 			return true;
-//			return super.onSingleTapUp(e);
+			// return super.onSingleTapUp(e);
 		}
 
 		/** 滑动 */
 		@SuppressWarnings("deprecation")
 		@Override
-		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+		public boolean onScroll(MotionEvent e1, MotionEvent e2,
+				float distanceX, float distanceY) {
 			float mOldX = e1.getX(), mOldY = e1.getY();
 			int y = (int) e2.getRawY();
 			Display disp = getWindowManager().getDefaultDisplay();
@@ -224,7 +216,8 @@ public class JieVideoPlayer extends Activity implements OnCompletionListener, On
 
 		// 变更进度条
 		ViewGroup.LayoutParams lp = mOperationPercent.getLayoutParams();
-		lp.width = findViewById(R.id.operation_full).getLayoutParams().width * index / mMaxVolume;
+		lp.width = findViewById(R.id.operation_full).getLayoutParams().width
+				* index / mMaxVolume;
 		mOperationPercent.setLayoutParams(lp);
 	}
 
@@ -267,20 +260,7 @@ public class JieVideoPlayer extends Activity implements OnCompletionListener, On
 
 	@Override
 	public void onCompletion(MediaPlayer player) {
-		Log.e("tet", "播放完成"+playCurrent_pos);
-		playCurrent_pos++;
-		if (playCurrent_pos < play_count_size) {
-			mLoadingView.setVisibility(View.VISIBLE);
-			mPath = list.get(playCurrent_pos).getUrl();
-			if (mPath.startsWith("http:")){
-				mVideoView.setVideoURI(Uri.parse(mPath));
-			}
-			else{
-				mVideoView.setVideoPath(mPath);
-			}
-		}else {
-			finish();
-		}
+		finish();
 	}
 
 	private void stopPlayer() {
@@ -304,7 +284,7 @@ public class JieVideoPlayer extends Activity implements OnCompletionListener, On
 	public boolean onInfo(MediaPlayer arg0, int arg1, int down_rate) {
 		switch (arg1) {
 		case MediaPlayer.MEDIA_INFO_BUFFERING_START:
-			//开始缓存，暂停播放
+			// 开始缓存，暂停播放
 			if (isPlaying()) {
 				stopPlayer();
 				needResume = true;
@@ -312,16 +292,16 @@ public class JieVideoPlayer extends Activity implements OnCompletionListener, On
 			mLoadingView.setVisibility(View.VISIBLE);
 			break;
 		case MediaPlayer.MEDIA_INFO_BUFFERING_END:
-			//缓存完成，继续播放
+			// 缓存完成，继续播放
 			if (needResume)
 				startPlayer();
 			mLoadingView.setVisibility(View.GONE);
 			break;
 		case MediaPlayer.MEDIA_INFO_DOWNLOAD_RATE_CHANGED:
-			//显示 下载速度
-			Log.e("test","download rate:" + down_rate);
-//			mLoadingPerce.setText("正在缓冲中..."+"缓冲完成："+down_rate);
-			//mListener.onDownloadRateChanged(arg2);
+			// 显示 下载速度
+			Log.e("test", "download rate:" + down_rate);
+			// mLoadingPerce.setText("正在缓冲中..."+"缓冲完成："+down_rate);
+			// mListener.onDownloadRateChanged(arg2);
 			break;
 		}
 		return true;

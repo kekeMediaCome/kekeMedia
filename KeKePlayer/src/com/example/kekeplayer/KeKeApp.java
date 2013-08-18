@@ -1,13 +1,16 @@
 package com.example.kekeplayer;
 
 import java.io.File;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import com.example.kekeplayer.type.ChannelInfo;
 import com.example.kekeplayer.type.FocusImageInfo;
 import com.example.kekeplayer.utils.AppUtils;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import android.app.Application;
 import android.content.Context;
@@ -22,7 +25,7 @@ public class KeKeApp extends Application {
 	public static final int REMIND_MAX = 15;
 	public static final int SUBSCIBE_MAX = 15;
 	public static Context context;
-	private static Handler handler;
+	public static Handler handler;
 	private static List<ChannelInfo> mChannelInfoList;
 	public static String mCurDate = null;
 	public static int mCurrentPosition;
@@ -31,7 +34,7 @@ public class KeKeApp extends Application {
 	public static List<FocusImageInfo> mList;
 	private static String mVersion;
 	private static Date now = null;
-	private static long uiThreadID;
+	public static long uiThreadID;
 
 	public static List<ChannelInfo> getChannelInfoList() {
 		return mChannelInfoList;
@@ -68,6 +71,11 @@ public class KeKeApp extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+//			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyDialog().build());
+//			StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyDeath().build());
+//		}
+		initImageLoader(getApplicationContext());
 		context = getBaseContext();
 		handler = new Handler();
 		uiThreadID = Thread.currentThread().getId();
@@ -77,6 +85,20 @@ public class KeKeApp extends Application {
 		mDisplayScale = context.getResources().getDisplayMetrics().density;
 	}
 	
-	
+	public static void initImageLoader(Context context) {
+		// This configuration tuning is custom. You can tune every option, you may tune some of them,
+		// or you can create default configuration by
+		//  ImageLoaderConfiguration.createDefault(this);
+		// method.
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+				.threadPriority(Thread.NORM_PRIORITY - 2)
+				.denyCacheImageMultipleSizesInMemory()
+				.discCacheFileNameGenerator(new Md5FileNameGenerator())
+				.tasksProcessingOrder(QueueProcessingType.LIFO)
+				.writeDebugLogs() // Remove for release app
+				.build();
+		// Initialize ImageLoader with configuration.
+		ImageLoader.getInstance().init(config);
+	}
 
 }

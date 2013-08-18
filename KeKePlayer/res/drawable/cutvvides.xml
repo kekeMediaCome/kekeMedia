@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<videos>
+
+    <total_results>
+23
+    </total_results>
+
+    <tv>
+        <tv_id>
+8
+        </tv_id>
+
+        <tv_name>
+深圳台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/sz_2.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/_2.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+278
+        </tv_id>
+
+        <tv_name>
+太原台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn//uploadfiles/goods/tv/ty.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn//uploadfiles/goods/tv/ty2.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+283
+        </tv_id>
+
+        <tv_name>
+荆州台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn//uploadfiles/goods/tv/jz_1.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn//uploadfiles/goods/tv/jz2.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+291
+        </tv_id>
+
+        <tv_name>
+湖北台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn//uploadfiles/goods/tv/hb.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn//uploadfiles/goods/tv/_6_1_1.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+299
+        </tv_id>
+
+        <tv_name>
+襄阳台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn//uploadfiles/goods/tv/xy.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn//uploadfiles/goods/tv/xylogo.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+273
+        </tv_id>
+
+        <tv_name>
+石家庄台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn//uploadfiles/goods/tv/sjz.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn//uploadfiles/goods/tv/sjz2.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+34
+        </tv_id>
+
+        <tv_name>
+南通台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/nt.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/_11.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+4
+        </tv_id>
+
+        <tv_name>
+柳州台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/liuz_2.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/_3.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+7
+        </tv_id>
+
+        <tv_name>
+济南台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/jn.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/jnlogo.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+5
+        </tv_id>
+
+        <tv_name>
+武汉台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/wh.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/whlogo.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+3
+        </tv_id>
+
+        <tv_name>
+宁波台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/nb.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/nblogo.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+35
+        </tv_id>
+
+        <tv_name>
+绍兴台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/sx_2.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/sx_logo.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+10
+        </tv_id>
+
+        <tv_name>
+苏州台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/suz_1.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/_4.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+29
+        </tv_id>
+
+        <tv_name>
+西安台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/xa.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/_7.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+11
+        </tv_id>
+
+        <tv_name>
+西宁台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/xn.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/xnlogo.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+12
+        </tv_id>
+
+        <tv_name>
+郑州台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/zz.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/zzlogo.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+6
+        </tv_id>
+
+        <tv_name>
+泰州台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/tz_1.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/_1.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+30
+        </tv_id>
+
+        <tv_name>
+台州台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/taiz.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/_8.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+32
+        </tv_id>
+
+        <tv_name>
+安阳台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/ay.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/_10.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+27
+        </tv_id>
+
+        <tv_name>
+南宁台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/nn_1.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/_5.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+28
+        </tv_id>
+
+        <tv_name>
+大连台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/dl_1.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/_6.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+1
+        </tv_id>
+
+        <tv_name>
+兰州台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/lz.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/lzlogo.png
+        </tv_logo>
+    </tv>
+    <tv>
+        <tv_id>
+9
+        </tv_id>
+
+        <tv_name>
+珠海台
+        </tv_name>
+
+        <tv_thumb_img>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/zh_3.png
+        </tv_thumb_img>
+
+        <tv_logo>
+http://ugc.suncam.com.cn/uploadfiles/goods/tv/_12.png
+        </tv_logo>
+    </tv>
+
+</videos>
