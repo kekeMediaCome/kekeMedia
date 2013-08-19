@@ -23,7 +23,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ public class TvProgramAdapt extends BaseAdapter {
 
 	private Activity mContext;
 	private TvChannel mCurTvChannel;
-	private SimpleDateFormat mFormat;
+	public SimpleDateFormat mFormat;
 	private LayoutInflater mLayoutInflater;
 	public List<Programs> mPrograms;
 
@@ -77,7 +76,6 @@ public class TvProgramAdapt extends BaseAdapter {
 		String string = null;
 		try {
 			Date date = DateUtils.sdf7.parse(parmString);
-			Log.e("stet", date.toLocaleString());
 			string = DateUtils.sdf5.format(date);
 		} catch (Exception e) {
 		}
@@ -118,7 +116,7 @@ public class TvProgramAdapt extends BaseAdapter {
 			@Override
 			public void run() {
 				String playBack = programs.getPlayback();
-				String title = programs.getTitle();
+//				String title = programs.getTitle();
 				try {
 					PlayBackDAO localPlayBackDAO = new PlayBackDAO();
 					List<PlayBackInfo> list = localPlayBackDAO.getPlayBackList(playBack);
@@ -268,11 +266,10 @@ public class TvProgramAdapt extends BaseAdapter {
 	  }
 	
 	public void playRemindBtn(Programs paramPrograms, ViewHolder viewHolder){
-		String show_time = paramPrograms.getShowtime()+":00";
-		String time_date = switchDate(show_time);
-		Log.e("stet", "switch "+time_date);
-		DBUtils dbUtils = new DBUtils(mContext);
-		String title = paramPrograms.getTitle();
+//		String show_time = paramPrograms.getShowtime()+":00";
+//		String time_date = switchDate(show_time);
+//		DBUtils dbUtils = new DBUtils(mContext);
+//		String title = paramPrograms.getTitle();
 		//if (dbUtils.getRemindStatus(title, time_date) == 0) {
 			viewHolder.program_status.setText(R.string.tv_time_remind);
 		//}else {

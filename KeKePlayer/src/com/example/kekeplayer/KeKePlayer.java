@@ -12,7 +12,6 @@ import com.example.kekeplayer.type.TvChannel;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -35,13 +34,15 @@ public class KeKePlayer extends AbsListViewBaseActivity implements OnCheckedChan
 	private ArrayList<Integer> radioList;
 	private RadioGroup tv_all;
 	private int mCurRadioIndex;
-
+	public ProgressDialog progressDialog;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tv_activity);
 		mLayoutInflater = (LayoutInflater) getSystemService("layout_inflater");
 		initLayout();
+		progressDialog = new ProgressDialog(KeKePlayer.this);
+		progressDialog.setMessage("加载中...");
 		InitData localInitData = new InitData();
 		Void[] arrayOfVoid = new Void[0];
 		localInitData.execute(arrayOfVoid);
@@ -101,22 +102,6 @@ public class KeKePlayer extends AbsListViewBaseActivity implements OnCheckedChan
 		}
 
 	}
-
-	private Dialog showLoadingDialog() {
-		ProgressDialog localProgressDialog = new ProgressDialog(this);
-		localProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		localProgressDialog.setMessage("加载中....");
-		localProgressDialog.setCancelable(true);
-		return localProgressDialog;
-	}
-
-	@Override
-	@Deprecated
-	protected Dialog onCreateDialog(int id) {
-		super.onCreateDialog(id);
-		return showLoadingDialog();
-	}
-
 	class InitData extends AsyncTask<Void, Void, Void> {
 		InitData() {
 		}
@@ -143,7 +128,7 @@ public class KeKePlayer extends AbsListViewBaseActivity implements OnCheckedChan
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			showDialog(0);
+			progressDialog.show();
 		}
 
 		@Override
@@ -153,7 +138,7 @@ public class KeKePlayer extends AbsListViewBaseActivity implements OnCheckedChan
 			if (tv_all.getChildCount() > 0) {
 				((RadioButton) tv_all.getChildAt(0)).setChecked(true);
 			}
-			dismissDialog(0);
+			progressDialog.cancel();
 		}
 	}
 

@@ -4,8 +4,10 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +37,7 @@ public class KeKeLiveSub extends AbsListViewBaseActivity implements
 	public final static String cutvurl = "http://ugc.sun-cam.com/api/tv_live_api.php?action=tv_live&prod_type=android";
 	public String cutv_sub_url = "http://ugc.sun-cam.com/api/tv_live_api.php?action=channel_prg_list&tv_id=";
 	public CutvLive cutvLive;
-
+	public ProgressDialog progressDialog;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,16 +55,43 @@ public class KeKeLiveSub extends AbsListViewBaseActivity implements
 		itemAdapter = new ItemAdapter();
 		((ListView) listView).setAdapter(itemAdapter);
 		listView.setOnItemClickListener(this);
+		progressDialog = new ProgressDialog(KeKeLiveSub.this);
+		progressDialog.setMessage("加载中...");
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		cutv_sub_url = cutv_sub_url + cutvLive.getTv_id();
-		listItems = CutvSubDom.parseXml(cutv_sub_url);
-		itemAdapter.notifyDataSetChanged();
+		InitData localInitData = new InitData();
+		Void[] arrayOfVoid = new Void[0];
+		localInitData.execute(arrayOfVoid);
 	}
+	class InitData extends AsyncTask<Void, Void, Void> {
+		InitData() {
+		}
+		@Override
+		protected Void doInBackground(Void... paramArrayOfVoid) {
+			try {
+				cutv_sub_url = cutv_sub_url + cutvLive.getTv_id();
+				listItems = CutvSubDom.parseXml(cutv_sub_url);
+			} catch (Exception e) {
+			}
+			return null;
+		}
 
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progressDialog.show();
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			itemAdapter.notifyDataSetChanged();
+			progressDialog.cancel();
+		}
+	}
 	class ItemAdapter extends BaseAdapter {
 
 		private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();

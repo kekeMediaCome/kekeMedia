@@ -8,8 +8,8 @@ import com.example.kekeplayer.type.Programs;
 import com.example.kekeplayer.type.TvChannel;
 import com.example.kekeplayer.utils.KeKeUtils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,14 +36,17 @@ public class TvDetailActivity extends Activity implements OnItemClickListener, O
 	private TvProgramAdapt mTvProgramAdapt;
 	private RadioGroup week_group;
 	public static  Handler handler;
-	
+	public ProgressDialog progressDialog;
 	public TvDetailActivity() {
 		mCurWeek = 1;
 	}
+	@SuppressLint("HandlerLeak")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.page_tv_detail_activity);
+		progressDialog = new ProgressDialog(TvDetailActivity.this);
+		progressDialog.setMessage("加载中...");
 		initTime();
 		initLayout();
 		handler = new Handler(){
@@ -60,22 +63,6 @@ public class TvDetailActivity extends Activity implements OnItemClickListener, O
 			}
 			
 		};
-	}
-
-	private Dialog showLoadingDialog(){
-		ProgressDialog progressDialog = new ProgressDialog(this);
-		progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		progressDialog.setMessage("加载中....");
-		progressDialog.setCancelable(true);
-		return progressDialog;
-	}
-	
-	@Override
-	@Deprecated
-	protected Dialog onCreateDialog(int id) {
-		Dialog dialog = super.onCreateDialog(id);
-		dialog = showLoadingDialog();
-		return dialog;
 	}
 
 	public void initLayout(){
@@ -123,31 +110,23 @@ public class TvDetailActivity extends Activity implements OnItemClickListener, O
 			return null;
 		}
 
-		@SuppressWarnings("deprecation")
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			TvDetailActivity.this.showDialog(0);
+			progressDialog.show();
 		}
 
-		@SuppressWarnings("deprecation")
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			mTvProgramAdapt.notifyDataSetChanged(mCurProgramList);
-			dismissDialog(0);
+			progressDialog.cancel();
 		}
 		
 	}
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-//		Intent intent = new Intent();
-//		intent.setClass(TvDetailActivity.this, JieVideoPlayer.class);
-//		Bundle bundle = new Bundle();
-//		bundle.putSerializable("Channel", mCurTvChannel);
-//		intent.putExtras(bundle);
-//		startActivity(intent);
 		mTvProgramAdapt.playBack(this, mTvProgramAdapt.mPrograms.get(position));
 	}
 

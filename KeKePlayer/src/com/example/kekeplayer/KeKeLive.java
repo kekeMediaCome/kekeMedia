@@ -4,13 +4,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -36,7 +34,7 @@ public class KeKeLive extends AbsListViewBaseActivity implements
 	private ItemAdapter itemAdapter;
 	public final static String cutvurl = "http://ugc.sun-cam.com/api/tv_live_api.php?action=tv_live&prod_type=android";
 	public final static String cutv_sub_url = "http://ugc.sun-cam.com/api/tv_live_api.php?action=channel_prg_list&tv_id=";
-
+	public ProgressDialog progressDialog;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,6 +50,8 @@ public class KeKeLive extends AbsListViewBaseActivity implements
 		itemAdapter = new ItemAdapter();
 		((ListView) listView).setAdapter(itemAdapter);
 		listView.setOnItemClickListener(this);
+		progressDialog = new ProgressDialog(KeKeLive.this);
+		progressDialog.setMessage("加载中...");
 		InitData localInitData = new InitData();
 		Void[] arrayOfVoid = new Void[0];
 		localInitData.execute(arrayOfVoid);
@@ -62,25 +62,9 @@ public class KeKeLive extends AbsListViewBaseActivity implements
 		super.onResume();
 	}
 
-	private Dialog showLoadingDialog() {
-		ProgressDialog localProgressDialog = new ProgressDialog(this);
-		localProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		localProgressDialog.setMessage("加载中....");
-		localProgressDialog.setCancelable(true);
-		return localProgressDialog;
-	}
-
-	@Override
-	@Deprecated
-	protected Dialog onCreateDialog(int id) {
-		super.onCreateDialog(id);
-		return showLoadingDialog();
-	}
-
 	class InitData extends AsyncTask<Void, Void, Void> {
 		InitData() {
 		}
-
 		@Override
 		protected Void doInBackground(Void... paramArrayOfVoid) {
 			try {
@@ -93,14 +77,14 @@ public class KeKeLive extends AbsListViewBaseActivity implements
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			showDialog(0);
+			progressDialog.show();
 		}
 
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			itemAdapter.notifyDataSetChanged();
-			dismissDialog(0);
+			progressDialog.cancel();
 		}
 	}
 
