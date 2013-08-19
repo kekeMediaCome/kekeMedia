@@ -4,16 +4,19 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -26,39 +29,79 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
-public class KeKeLive extends AbsListViewBaseActivity implements OnItemClickListener{
+public class KeKeLive extends AbsListViewBaseActivity implements
+		OnItemClickListener {
 	DisplayImageOptions options;
 	public List<CutvLive> listItems = null;
-	public ProgressBar loadProgressBar;
 	private ItemAdapter itemAdapter;
-	public final static String  cutvurl= "http://ugc.sun-cam.com/api/tv_live_api.php?action=tv_live&prod_type=android";
+	public final static String cutvurl = "http://ugc.sun-cam.com/api/tv_live_api.php?action=tv_live&prod_type=android";
 	public final static String cutv_sub_url = "http://ugc.sun-cam.com/api/tv_live_api.php?action=channel_prg_list&tv_id=";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.kekelive);
-		
+
 		options = new DisplayImageOptions.Builder()
-		.showStubImage(R.drawable.ic_stub)
-		.showImageForEmptyUri(R.drawable.ic_empty)
-		.showImageOnFail(R.drawable.ic_error)
-		.cacheInMemory(true)
-		.cacheOnDisc(true)
-		.displayer(new RoundedBitmapDisplayer(20))
-		.build();
-		loadProgressBar = (ProgressBar)findViewById(R.id.load);
+				.showStubImage(R.drawable.ic_stub)
+				.showImageForEmptyUri(R.drawable.ic_empty)
+				.showImageOnFail(R.drawable.ic_error).cacheInMemory(true)
+				.cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(20))
+				.build();
 		listView = (ListView) findViewById(android.R.id.list);
 		itemAdapter = new ItemAdapter();
 		((ListView) listView).setAdapter(itemAdapter);
 		listView.setOnItemClickListener(this);
+		InitData localInitData = new InitData();
+		Void[] arrayOfVoid = new Void[0];
+		localInitData.execute(arrayOfVoid);
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
-		listItems = CutvDom.parseXml(cutvurl);
-		itemAdapter.notifyDataSetChanged();
-		loadProgressBar.setVisibility(View.INVISIBLE);
+	}
+
+	private Dialog showLoadingDialog() {
+		ProgressDialog localProgressDialog = new ProgressDialog(this);
+		localProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		localProgressDialog.setMessage("加载中....");
+		localProgressDialog.setCancelable(true);
+		return localProgressDialog;
+	}
+
+	@Override
+	@Deprecated
+	protected Dialog onCreateDialog(int id) {
+		super.onCreateDialog(id);
+		return showLoadingDialog();
+	}
+
+	class InitData extends AsyncTask<Void, Void, Void> {
+		InitData() {
+		}
+
+		@Override
+		protected Void doInBackground(Void... paramArrayOfVoid) {
+			try {
+				listItems = CutvDom.parseXml(cutvurl);
+			} catch (Exception e) {
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			showDialog(0);
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			itemAdapter.notifyDataSetChanged();
+			dismissDialog(0);
+		}
 	}
 
 	class ItemAdapter extends BaseAdapter {
@@ -69,12 +112,12 @@ public class KeKeLive extends AbsListViewBaseActivity implements OnItemClickList
 			public TextView text;
 			public ImageView image;
 		}
-		
+
 		@Override
 		public int getCount() {
 			if (listItems != null) {
 				return listItems.size();
-			}else {
+			} else {
 				return 0;
 			}
 		}
@@ -90,11 +133,13 @@ public class KeKeLive extends AbsListViewBaseActivity implements OnItemClickList
 		}
 
 		@Override
-		public View getView(final int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
 			View view = convertView;
 			final ViewHolder holder;
 			if (convertView == null) {
-				view = getLayoutInflater().inflate(R.layout.kekelive_item, parent, false);
+				view = getLayoutInflater().inflate(R.layout.kekelive_item,
+						parent, false);
 				holder = new ViewHolder();
 				holder.text = (TextView) view.findViewById(R.id.text);
 				holder.image = (ImageView) view.findViewById(R.id.image);
@@ -103,19 +148,24 @@ public class KeKeLive extends AbsListViewBaseActivity implements OnItemClickList
 				holder = (ViewHolder) view.getTag();
 			}
 			CutvLive cutvLive = listItems.get(position);
+//			Log.e("dd", cutvLive.getTv_name());
 			holder.text.setText(cutvLive.getTv_name());
-			imageLoader.displayImage(cutvLive.getTv_thumb_img(), holder.image, options, animateFirstListener);
+			imageLoader.displayImage(cutvLive.getTv_thumb_img(), holder.image,
+					options, animateFirstListener);
 
 			return view;
 		}
 	}
 
-	private static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
+	private static class AnimateFirstDisplayListener extends
+			SimpleImageLoadingListener {
 
-		static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
+		static final List<String> displayedImages = Collections
+				.synchronizedList(new LinkedList<String>());
 
 		@Override
-		public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+		public void onLoadingComplete(String imageUri, View view,
+				Bitmap loadedImage) {
 			if (loadedImage != null) {
 				ImageView imageView = (ImageView) view;
 				boolean firstDisplay = !displayedImages.contains(imageUri);

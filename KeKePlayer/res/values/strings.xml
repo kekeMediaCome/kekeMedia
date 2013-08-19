@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="main_name">Trad TBox</string>
-    <string name="app_name">盗贼网络视频播放器</string>
+    <string name="app_name">Trad Player</string>
     <string name="category_home">最新推荐</string>
     <string name="category_live">直播</string>
     <string name="category_channel">频道</string>

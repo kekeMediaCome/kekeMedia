@@ -82,7 +82,14 @@ public class KeKePlayer extends AbsListViewBaseActivity implements OnCheckedChan
 				RadioButton localRadioButton = (RadioButton) this.mLayoutInflater
 						.inflate(R.layout.page_tv_radio_btn, null);
 				String name = mMediaTypesList.get(j).getName();
-				localRadioButton.setText(name);
+				if (name.equals("中央电视台")) {
+					localRadioButton.setText("央视");
+				}else if (name.equals("省市电视台")) {
+					localRadioButton.setText("卫视");
+				}else {
+					localRadioButton.setText(name);
+				}
+				
 				int k = j + 436;
 				localRadioButton.setId(k);
 				radioList.add(k);
@@ -106,9 +113,8 @@ public class KeKePlayer extends AbsListViewBaseActivity implements OnCheckedChan
 	@Override
 	@Deprecated
 	protected Dialog onCreateDialog(int id) {
-		Dialog dialog = super.onCreateDialog(id);
-		dialog = showLoadingDialog();
-		return dialog;
+		super.onCreateDialog(id);
+		return showLoadingDialog();
 	}
 
 	class InitData extends AsyncTask<Void, Void, Void> {
@@ -144,7 +150,9 @@ public class KeKePlayer extends AbsListViewBaseActivity implements OnCheckedChan
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			addButtonByNet();
-			((RadioButton) tv_all.getChildAt(0)).setChecked(true);
+			if (tv_all.getChildCount() > 0) {
+				((RadioButton) tv_all.getChildAt(0)).setChecked(true);
+			}
 			dismissDialog(0);
 		}
 	}

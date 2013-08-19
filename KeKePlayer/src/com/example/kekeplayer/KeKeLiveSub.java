@@ -14,7 +14,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.kekeplayer.dom.CutvSubDom;
@@ -32,7 +31,6 @@ public class KeKeLiveSub extends AbsListViewBaseActivity implements
 
 	DisplayImageOptions options;
 	public List<CutvLiveSub> listItems = null;
-	public ProgressBar loadProgressBar;
 	private ItemAdapter itemAdapter;
 	public final static String cutvurl = "http://ugc.sun-cam.com/api/tv_live_api.php?action=tv_live&prod_type=android";
 	public String cutv_sub_url = "http://ugc.sun-cam.com/api/tv_live_api.php?action=channel_prg_list&tv_id=";
@@ -50,7 +48,6 @@ public class KeKeLiveSub extends AbsListViewBaseActivity implements
 				.showImageOnFail(R.drawable.ic_error).cacheInMemory(true)
 				.cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(20))
 				.build();
-		loadProgressBar = (ProgressBar) findViewById(R.id.load);
 		
 		listView = (ListView) findViewById(android.R.id.list);
 		itemAdapter = new ItemAdapter();
@@ -64,7 +61,6 @@ public class KeKeLiveSub extends AbsListViewBaseActivity implements
 		cutv_sub_url = cutv_sub_url + cutvLive.getTv_id();
 		listItems = CutvSubDom.parseXml(cutv_sub_url);
 		itemAdapter.notifyDataSetChanged();
-		loadProgressBar.setVisibility(View.INVISIBLE);
 	}
 
 	class ItemAdapter extends BaseAdapter {
@@ -148,6 +144,7 @@ public class KeKeLiveSub extends AbsListViewBaseActivity implements
 		intent.putExtra("title", cutvLiveSub.getChannel_name());
 		intent.setClass(KeKeLiveSub.this, JieLiveVideoPlayer.class);
 		startActivity(intent);
+		finish();
 	}
 
 }
