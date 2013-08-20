@@ -118,11 +118,10 @@ public class KeKeLive_Cutv extends AbsListViewBaseActivity implements
 		}
 
 		@Override
-		public View getView(final int position, View convertView,
+		public View getView(final int position, View view,
 				ViewGroup parent) {
-			View view = convertView;
 			final ViewHolder holder;
-			if (convertView == null) {
+			if (view == null) {
 				view = getLayoutInflater().inflate(R.layout.kekelive_item,
 						parent, false);
 				holder = new ViewHolder();
@@ -133,7 +132,6 @@ public class KeKeLive_Cutv extends AbsListViewBaseActivity implements
 				holder = (ViewHolder) view.getTag();
 			}
 			CutvLive cutvLive = listItems.get(position);
-//			Log.e("dd", cutvLive.getTv_name());
 			holder.text.setText(cutvLive.getTv_name());
 			imageLoader.displayImage(cutvLive.getTv_thumb_img(), holder.image,
 					options, animateFirstListener);

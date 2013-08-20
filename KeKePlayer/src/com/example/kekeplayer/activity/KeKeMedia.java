@@ -124,7 +124,6 @@ public class KeKeMedia extends Activity implements OnItemClickListener {
 	 * 
 	 */
 	private class ScrollTask implements Runnable {
-
 		public void run() {
 			synchronized (viewPager) {
 				currentItem = (currentItem + 1) % imageViews.size();

@@ -19,7 +19,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.GestureDetector;
@@ -89,7 +88,7 @@ public class JieLiveVideoPlayer extends Activity implements
 		mMediaController.setFileName(mTitle);
 		mVideoView.setMediaController(mMediaController);
 		mVideoView.requestFocus();
-
+		 
 		mGestureDetector = new GestureDetector(this, new MyGestureListener());
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 	}
@@ -284,6 +283,9 @@ public class JieLiveVideoPlayer extends Activity implements
 	public boolean onInfo(MediaPlayer arg0, int arg1, int down_rate) {
 		switch (arg1) {
 		case MediaPlayer.MEDIA_INFO_BUFFERING_START:
+			if (mTitle != null) {
+				mMediaController.setFileName(mTitle);
+			}
 			// 开始缓存，暂停播放
 			if (isPlaying()) {
 				stopPlayer();
@@ -296,10 +298,12 @@ public class JieLiveVideoPlayer extends Activity implements
 			if (needResume)
 				startPlayer();
 			mLoadingView.setVisibility(View.GONE);
+			if (mTitle != null) {
+				mMediaController.setFileName(mTitle);
+			}
 			break;
 		case MediaPlayer.MEDIA_INFO_DOWNLOAD_RATE_CHANGED:
 			// 显示 下载速度
-			Log.e("test", "download rate:" + down_rate);
 			// mLoadingPerce.setText("正在缓冲中..."+"缓冲完成："+down_rate);
 			// mListener.onDownloadRateChanged(arg2);
 			break;
