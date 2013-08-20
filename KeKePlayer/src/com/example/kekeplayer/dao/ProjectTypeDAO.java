@@ -13,8 +13,8 @@ public class ProjectTypeDAO {
 	public List<ProjectType> getProjectTypes() {
 		List<ProjectType> list = new ArrayList<ProjectType>();
 		try {
-			String json_result = "{\"result\":[{\"name\":\"推荐应用\", \"class\":\"com.example.kekeplayer.KeKePlayer\"}, {\"name\":\"回看\", \"class\":\"com.example.kekeplayer.KeKePlayer\"}, {\"name\":\"直播\", \"class\":\"com.example.kekeplayer.KeKeLive\"}]}"; // new
-																																							// HttpApiImpl().doHttpGet(url);
+			String json_result = "{\"result\":[{\"name\":\"推荐应用\", \"class\":\"com.example.kekeplayer.activity.KeKePlayer\"}, {\"name\":\"回看\", \"class\":\"com.example.kekeplayer.activity.KeKePlayer\"}, {\"name\":\"CUTV直播\", \"class\":\"com.example.kekeplayer.activity.KeKeLive_Cutv\"}]}"; // new
+			// HttpApiImpl().doHttpGet(url);
 			JSONObject result = new JSONObject(json_result);// JSONUtils.getBodyAndCheckHeader(url,
 															// json_result);
 			JSONArray pragramsArray = result.getJSONArray("result");

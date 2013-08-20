@@ -5,7 +5,7 @@
     android:versionName="1.0.3" >
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="8"
         android:targetSdkVersion="17" >
     </uses-sdk>
 
@@ -30,48 +30,47 @@
         android:icon="@drawable/logo"
         android:label="Trad Player" >
         <activity
-            android:name="com.example.kekeplayer.KeKeMedia"
+            android:name="com.example.kekeplayer.activity.KeKeMedia"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.kekeplayer.KeKePlayer"
+            android:name="com.example.kekeplayer.activity.KeKePlayer"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" >
         </activity>
         <activity
-            android:name=".TvDetailActivity"
+            android:name="com.example.kekeplayer.activity.TvDetailActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity
-            android:name=".KeKeLive"
+            android:name="com.example.kekeplayer.activity.KeKeLive_Cutv"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity
-            android:name=".KeKeLiveSub"
+            android:name="com.example.kekeplayer.activity.KeKeLiveSub_Cutv"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity
-            android:name=".JieVideoPlayer"
+            android:name="com.example.kekeplayer.player.JieVideoPlayer"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name=".JieLiveVideoPlayer"
+            android:name="com.example.kekeplayer.player.JieLiveVideoPlayer"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >

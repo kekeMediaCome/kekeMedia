@@ -32,7 +32,6 @@ public class TvChannelParse {
 			String str5 = paramJSONObject.getString("program_name");
 			localTvChannel.setProgram_name(str5);
 		}
-		System.out.println(localTvChannel.getChannelname());
 		return localTvChannel;
 	}
 }

@@ -32,7 +32,7 @@
     </FrameLayout>
 
     <HorizontalScrollView
-        android:id="@id/sv_btn"
+        android:id="@+id/sv_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/cbox_ucenter_category_bg"
@@ -88,7 +88,7 @@
     <ListView
         android:id="@id/tv_detail_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#ff2f2f2f"
         android:cacheColorHint="#00000000"
         android:divider="@drawable/cbox_uc_divider"
@@ -102,6 +102,7 @@
         android:stackFromBottom="true"
         android:scrollingCache="false" 
         android:layout_below="@id/sv_btn"
+        android:layout_marginTop="0.0dp"
         />
 
 </RelativeLayout>

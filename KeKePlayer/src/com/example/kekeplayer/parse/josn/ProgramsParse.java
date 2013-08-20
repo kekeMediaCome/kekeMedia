@@ -3,8 +3,6 @@ package com.example.kekeplayer.parse.josn;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.example.kekeplayer.type.Programs;
 
 public class ProgramsParse {
@@ -30,7 +28,6 @@ public class ProgramsParse {
 		}
 		String str4 = this.realTime;
 		localPrograms.setRealTime(str4);
-		Log.e("test", localPrograms.getShowtime()+"Programs:"+localPrograms.getTitle());
 		return localPrograms;
 	}
 }

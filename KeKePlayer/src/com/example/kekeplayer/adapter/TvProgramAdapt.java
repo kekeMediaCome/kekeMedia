@@ -5,11 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.example.kekeplayer.JieVideoPlayer;
 import com.example.kekeplayer.KeKeApp;
 import com.example.kekeplayer.R;
-import com.example.kekeplayer.TvDetailActivity;
+import com.example.kekeplayer.activity.TvDetailActivity;
 import com.example.kekeplayer.dao.PlayBackDAO;
+import com.example.kekeplayer.player.JieVideoPlayer;
 import com.example.kekeplayer.type.PlayBackInfo;
 import com.example.kekeplayer.type.Programs;
 import com.example.kekeplayer.type.Remind;

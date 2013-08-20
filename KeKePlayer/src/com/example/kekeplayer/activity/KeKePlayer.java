@@ -1,8 +1,9 @@
-package com.example.kekeplayer;
+package com.example.kekeplayer.activity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.kekeplayer.R;
 import com.example.kekeplayer.adapter.KeKeChannelListViewAdapter;
 import com.example.kekeplayer.dao.MediaTypeDAO;
 import com.example.kekeplayer.dao.TvChannelDAO;
@@ -26,7 +27,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class KeKePlayer extends AbsListViewBaseActivity implements OnCheckedChangeListener {
 
-//	private ListView KeKe_Channel_List = null;
 	private List<MediaType> mMediaTypesList;
 	private LayoutInflater mLayoutInflater;
 	private KeKeChannelListViewAdapter mTvAdapter;

@@ -1,4 +1,4 @@
-package com.example.kekeplayer;
+package com.example.kekeplayer.player;
 
 import com.example.kekeplayer.R;
 import com.example.kekeplayer.type.TvChannel;

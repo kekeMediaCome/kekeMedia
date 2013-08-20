@@ -1,7 +1,8 @@
-package com.example.kekeplayer;
+package com.example.kekeplayer.activity;
 
 import java.util.List;
 
+import com.example.kekeplayer.R;
 import com.example.kekeplayer.adapter.TvProgramAdapt;
 import com.example.kekeplayer.dao.ProgramsDAO;
 import com.example.kekeplayer.type.Programs;
@@ -11,6 +12,7 @@ import com.example.kekeplayer.utils.KeKeUtils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,21 +27,24 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-public class TvDetailActivity extends Activity implements OnItemClickListener, OnCheckedChangeListener, OnClickListener{
+public class TvDetailActivity extends Activity implements OnItemClickListener,
+		OnCheckedChangeListener, OnClickListener {
 	public static TvChannel mCurTvChannel;
 	public static int monclicweekday = 1;
-	protected final int FIRST_ID =  436;
+	protected final int FIRST_ID = 436;
 	private List<Programs> mCurProgramList;
 	private List<String> mCurWeeKDate;
 	private int mCurWeek;
 	public static ListView mTvDetailListView;
 	private TvProgramAdapt mTvProgramAdapt;
 	private RadioGroup week_group;
-	public static  Handler handler;
+	public static Handler handler;
 	public ProgressDialog progressDialog;
+
 	public TvDetailActivity() {
 		mCurWeek = 1;
 	}
+
 	@SuppressLint("HandlerLeak")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,50 +54,50 @@ public class TvDetailActivity extends Activity implements OnItemClickListener, O
 		progressDialog.setMessage("加载中...");
 		initTime();
 		initLayout();
-		handler = new Handler(){
+		handler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
 				switch (msg.what) {
 				case 0:
-					Log.e("estt", " "+msg.arg1);
 					mTvDetailListView.setSelection(msg.arg1);
 					mTvDetailListView.setSelected(true);
 					break;
 				}
 			}
-			
 		};
 	}
 
-	public void initLayout(){
+	public void initLayout() {
 		Bundle bundle = getIntent().getExtras();
 		mCurTvChannel = (TvChannel) bundle.getSerializable("TvChannel");
-		mTvDetailListView = (ListView)findViewById(R.id.tv_detail_list);
+		mTvDetailListView = (ListView) findViewById(R.id.tv_detail_list);
 		mTvProgramAdapt = new TvProgramAdapt(this, mCurTvChannel);
 		mTvDetailListView.setAdapter(mTvProgramAdapt);
 		mTvDetailListView.setOnItemClickListener(this);
-		week_group = (RadioGroup)findViewById(R.id.week_group);
+		week_group = (RadioGroup) findViewById(R.id.week_group);
 		week_group.setOnCheckedChangeListener(this);
-		int i = KeKeUtils.getTodayWeek()-1;
-		((RadioButton)week_group.getChildAt(i)).setChecked(true);
+		int i = KeKeUtils.getTodayWeek() - 1;
+		((RadioButton) week_group.getChildAt(i)).setChecked(true);
 		findViewById(R.id.back_btn).setOnClickListener(this);
-		
+
 	}
+
 	public void initTime() {
 		mCurWeek = KeKeUtils.getTodayWeek();
 		mCurWeeKDate = KeKeUtils.getCurWeekOfDate(mCurWeek);
 	}
-	private void setProgram(String paramString1, String paramString2){
+
+	private void setProgram(String paramString1, String paramString2) {
 		InitData localInitData = new InitData(paramString1, paramString2);
-	    Void[] arrayOfVoid = new Void[0];
-	    localInitData.execute(arrayOfVoid);
+		Void[] arrayOfVoid = new Void[0];
+		localInitData.execute(arrayOfVoid);
 	}
-	class InitData extends AsyncTask<Void, Void, Void>
-	{
+
+	class InitData extends AsyncTask<Void, Void, Void> {
 		private String channelID;
-	    private String dateTime;
-	    
+		private String dateTime;
+
 		public InitData(String channelID, String dateTime) {
 			super();
 			this.channelID = channelID;
@@ -105,7 +110,7 @@ public class TvDetailActivity extends Activity implements OnItemClickListener, O
 				ProgramsDAO programsDAO = new ProgramsDAO();
 				mCurProgramList = programsDAO.getPrograms(channelID, dateTime);
 			} catch (Exception e) {
-			
+
 			}
 			return null;
 		}
@@ -122,8 +127,9 @@ public class TvDetailActivity extends Activity implements OnItemClickListener, O
 			mTvProgramAdapt.notifyDataSetChanged(mCurProgramList);
 			progressDialog.cancel();
 		}
-		
+
 	}
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
@@ -135,7 +141,7 @@ public class TvDetailActivity extends Activity implements OnItemClickListener, O
 		if (mCurWeeKDate == null) {
 			return;
 		}
-		String dateTime ="";
+		String dateTime = "";
 		switch (checkedId) {
 		case R.id.play_time_one:
 			dateTime = mCurWeeKDate.get(0);
@@ -178,4 +184,12 @@ public class TvDetailActivity extends Activity implements OnItemClickListener, O
 			break;
 		}
 	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		Log.e("Config", ":  "+newConfig.orientation);
+		super.onConfigurationChanged(newConfig);
+	}
+
+	
 }

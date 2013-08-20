@@ -1,4 +1,4 @@
-package com.example.kekeplayer;
+package com.example.kekeplayer.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import com.example.kekeplayer.R;
 import com.example.kekeplayer.adapter.KeKeMediaAdapter;
 import com.example.kekeplayer.dao.ProjectTypeDAO;
 import com.example.kekeplayer.type.ProjectType;
@@ -27,7 +28,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView.ScaleType;
 
-public class KeKeMedia extends Activity implements OnItemClickListener{
+public class KeKeMedia extends Activity implements OnItemClickListener {
 	private ViewPager viewPager; // android-support-v4中的滑动组件
 	private List<ImageView> imageViews; // 滑动的图片集合
 
@@ -44,7 +45,7 @@ public class KeKeMedia extends Activity implements OnItemClickListener{
 	public ListView listView;
 	public KeKeMediaAdapter keKeMediaAdapter;
 	public List<ProjectType> list = new ArrayList<ProjectType>();
-	
+
 	// 切换当前显示的图片
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
@@ -91,7 +92,7 @@ public class KeKeMedia extends Activity implements OnItemClickListener{
 		viewPager.setAdapter(new MyAdapter());// 设置填充ViewPager页面的适配器
 		// 设置一个监听器，当ViewPager中的页面改变时调用
 		viewPager.setOnPageChangeListener(new MyPageChangeListener());
-		listView = (ListView)findViewById(R.id.kekechannellist);
+		listView = (ListView) findViewById(R.id.kekechannellist);
 		keKeMediaAdapter = new KeKeMediaAdapter(this);
 		ProjectTypeDAO projectTypeDAO = new ProjectTypeDAO();
 		list = projectTypeDAO.getProjectTypes();
@@ -99,7 +100,7 @@ public class KeKeMedia extends Activity implements OnItemClickListener{
 		listView.setAdapter(keKeMediaAdapter);
 		listView.setOnItemClickListener(this);
 	}
-	
+
 	@Override
 	protected void onStart() {
 		scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
@@ -126,7 +127,6 @@ public class KeKeMedia extends Activity implements OnItemClickListener{
 
 		public void run() {
 			synchronized (viewPager) {
-				System.out.println("currentItem: " + currentItem);
 				currentItem = (currentItem + 1) % imageViews.size();
 				handler.obtainMessage().sendToTarget(); // 通过Handler切换图片
 			}
@@ -207,6 +207,7 @@ public class KeKeMedia extends Activity implements OnItemClickListener{
 
 		}
 	}
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {

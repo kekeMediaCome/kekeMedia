@@ -1,4 +1,4 @@
-package com.example.kekeplayer;
+package com.example.kekeplayer.player;
 
 import java.util.List;
 
