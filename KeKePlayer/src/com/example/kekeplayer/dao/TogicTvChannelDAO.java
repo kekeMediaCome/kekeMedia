@@ -34,7 +34,12 @@ public class TogicTvChannelDAO {
 			TogicChannelParse parse = new TogicChannelParse();
 			for (int i = 0; i < count; i++) {
 				JSONObject object = result.getJSONObject(i);
-				list.add(parse.parse(object));
+				if (object.has("province")) {
+					String province = object.getString("province");
+					if (!"中央".equals(province)) {
+						list.add(parse.parse(object));
+					}
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
