@@ -1,7 +1,7 @@
 package com.example.kekeplayer.player;
 
 import com.example.kekeplayer.R;
-import com.example.kekeplayer.type.TvChannel;
+import com.example.kekeplayer.type.Video;
 
 import io.vov.vitamio.LibsChecker;
 import io.vov.vitamio.MediaPlayer;
@@ -29,8 +29,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 @SuppressLint("HandlerLeak")
-public class JieLiveVideoPlayer extends Activity implements
-		OnCompletionListener, OnInfoListener {
+public class LocalVideoPlayer extends Activity implements OnCompletionListener, OnInfoListener {
 
 	private String mPath;
 	private String mTitle;
@@ -50,9 +49,8 @@ public class JieLiveVideoPlayer extends Activity implements
 	private GestureDetector mGestureDetector;
 	private MediaController mMediaController;
 	private View mLoadingView;
-	TvChannel tvChannel = null;
+	private Video playVideoFile;
 	
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,8 +60,16 @@ public class JieLiveVideoPlayer extends Activity implements
 			return;
 
 		// ~~~ 获取播放地址和标题
-		mPath = (String) getIntent().getStringExtra("path");
-		mTitle = (String) getIntent().getStringExtra("title");
+		Bundle bundle = getIntent().getExtras();
+		playVideoFile = (Video)bundle.getSerializable("video");
+		mPath = playVideoFile.getPath();
+		mTitle = playVideoFile.getTitle();
+//		if (TextUtils.isEmpty(mPath)) {
+//			mPath = Environment.getExternalStorageDirectory() + "/video/你太猖狂.flv";
+//
+//		} else if (intent.getData() != null)
+//			mPath = intent.getData().toString();
+
 		// ~~~ 绑定控件
 		setContentView(R.layout.videoview);
 		mVideoView = (VideoView) findViewById(R.id.surface_view);
@@ -71,25 +77,25 @@ public class JieLiveVideoPlayer extends Activity implements
 		mOperationBg = (ImageView) findViewById(R.id.operation_bg);
 		mOperationPercent = (ImageView) findViewById(R.id.operation_percent);
 		mLoadingView = findViewById(R.id.video_loading);
+
 		// ~~~ 绑定事件
 		mVideoView.setOnCompletionListener(this);
 		mVideoView.setOnInfoListener(this);
 
 		// ~~~ 绑定数据
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-		mMaxVolume = mAudioManager
-				.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-		if (mPath.startsWith("http:")) {
+		mMaxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+		if (mPath.startsWith("http:"))
 			mVideoView.setVideoURI(Uri.parse(mPath));
-		} else {
+		else
 			mVideoView.setVideoPath(mPath);
-		}
-		// 设置显示名称
+
+		//设置显示名称
 		mMediaController = new MediaController(this);
 		mMediaController.setFileName(mTitle);
 		mVideoView.setMediaController(mMediaController);
 		mVideoView.requestFocus();
-		 
+
 		mGestureDetector = new GestureDetector(this, new MyGestureListener());
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 	}
@@ -154,18 +160,10 @@ public class JieLiveVideoPlayer extends Activity implements
 			return true;
 		}
 
-		@Override
-		public boolean onSingleTapUp(MotionEvent e) {
-
-			return true;
-			// return super.onSingleTapUp(e);
-		}
-
 		/** 滑动 */
 		@SuppressWarnings("deprecation")
 		@Override
-		public boolean onScroll(MotionEvent e1, MotionEvent e2,
-				float distanceX, float distanceY) {
+		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
 			float mOldX = e1.getX(), mOldY = e1.getY();
 			int y = (int) e2.getRawY();
 			Display disp = getWindowManager().getDefaultDisplay();
@@ -216,8 +214,7 @@ public class JieLiveVideoPlayer extends Activity implements
 
 		// 变更进度条
 		ViewGroup.LayoutParams lp = mOperationPercent.getLayoutParams();
-		lp.width = findViewById(R.id.operation_full).getLayoutParams().width
-				* index / mMaxVolume;
+		lp.width = findViewById(R.id.operation_full).getLayoutParams().width * index / mMaxVolume;
 		mOperationPercent.setLayoutParams(lp);
 	}
 
@@ -281,13 +278,10 @@ public class JieLiveVideoPlayer extends Activity implements
 	private boolean needResume;
 
 	@Override
-	public boolean onInfo(MediaPlayer arg0, int arg1, int down_rate) {
+	public boolean onInfo(MediaPlayer arg0, int arg1, int arg2) {
 		switch (arg1) {
 		case MediaPlayer.MEDIA_INFO_BUFFERING_START:
-			if (mTitle != null) {
-				mMediaController.setFileName(mTitle);
-			}
-			// 开始缓存，暂停播放
+			//开始缓存，暂停播放
 			if (isPlaying()) {
 				stopPlayer();
 				needResume = true;
@@ -295,18 +289,14 @@ public class JieLiveVideoPlayer extends Activity implements
 			mLoadingView.setVisibility(View.VISIBLE);
 			break;
 		case MediaPlayer.MEDIA_INFO_BUFFERING_END:
-			// 缓存完成，继续播放
+			//缓存完成，继续播放
 			if (needResume)
 				startPlayer();
 			mLoadingView.setVisibility(View.GONE);
-			if (mTitle != null) {
-				mMediaController.setFileName(mTitle);
-			}
 			break;
 		case MediaPlayer.MEDIA_INFO_DOWNLOAD_RATE_CHANGED:
-			// 显示 下载速度
-			// mLoadingPerce.setText("正在缓冲中..."+"缓冲完成："+down_rate);
-			// mListener.onDownloadRateChanged(arg2);
+			//显示 下载速度
+			//mListener.onDownloadRateChanged(arg2);
 			break;
 		}
 		return true;

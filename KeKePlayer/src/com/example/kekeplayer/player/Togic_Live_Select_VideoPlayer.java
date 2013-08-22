@@ -1,6 +1,9 @@
 package com.example.kekeplayer.player;
 
+import java.util.List;
+
 import com.example.kekeplayer.R;
+import com.example.kekeplayer.type.TogicTvChannelType;
 import com.example.kekeplayer.type.TvChannel;
 
 import io.vov.vitamio.LibsChecker;
@@ -22,14 +25,18 @@ import android.os.Message;
 import android.view.Display;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 
 @SuppressLint("HandlerLeak")
-public class JieLiveVideoPlayer extends Activity implements
+public class Togic_Live_Select_VideoPlayer extends Activity implements
 		OnCompletionListener, OnInfoListener {
 
 	private String mPath;
@@ -51,12 +58,10 @@ public class JieLiveVideoPlayer extends Activity implements
 	private MediaController mMediaController;
 	private View mLoadingView;
 	TvChannel tvChannel = null;
-	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		// ~~~ 检测Vitamio是否解压解码包
 		if (!LibsChecker.checkVitamioLibs(this))
 			return;
@@ -94,6 +99,55 @@ public class JieLiveVideoPlayer extends Activity implements
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 	}
 
+	//创建一个包含自定义ListView的PopupWindow
+	private PopupWindow makePopupWindow(Context cx){
+		PopupWindow window;
+		window = new PopupWindow(cx);
+		ItemAdapter apAdapter = new ItemAdapter();
+		View view = LayoutInflater.from(cx).inflate(R.layout.togic_select_pop, null);
+		window.setContentView(view);
+		ListView listView = (ListView)view.findViewById(R.id.togic_pop_list);
+		
+		
+		
+		
+		
+		
+		return window;
+	}
+	
+	class ItemAdapter extends BaseAdapter {
+		public List<TogicTvChannelType> listItems;
+		public ItemAdapter(){
+			
+		}
+		@Override
+		public int getCount() {
+			if (listItems != null) {
+				return listItems.size();
+			}else{
+				return 0;
+			}
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return listItems.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View view, ViewGroup parent) {
+			
+			return null;
+		}
+		
+	}
+	
 	@Override
 	protected void onPause() {
 		super.onPause();
