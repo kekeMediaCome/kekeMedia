@@ -1,10 +1,7 @@
 package com.example.kekeplayer.player;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.example.kekeplayer.R;
-import com.example.kekeplayer.type.TogicTvChannelType;
+import com.example.kekeplayer.type.TvChannel;
 
 import io.vov.vitamio.LibsChecker;
 import io.vov.vitamio.MediaPlayer;
@@ -25,23 +22,15 @@ import android.os.Message;
 import android.view.Display;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.GestureDetector;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 @SuppressLint("HandlerLeak")
-public class Togic_Live_Select_VideoPlayer extends Activity implements
+public class TogicLiveVideoPlayer extends Activity implements
 		OnCompletionListener, OnInfoListener {
 
 	private String mPath;
@@ -51,8 +40,6 @@ public class Togic_Live_Select_VideoPlayer extends Activity implements
 	private ImageView mOperationBg;
 	private ImageView mOperationPercent;
 	private AudioManager mAudioManager;
-	private RelativeLayout Parent;
-	public Context mContext;
 	/** 最大声音 */
 	private int mMaxVolume;
 	/** 当前声音 */
@@ -64,31 +51,22 @@ public class Togic_Live_Select_VideoPlayer extends Activity implements
 	private GestureDetector mGestureDetector;
 	private MediaController mMediaController;
 	private View mLoadingView;
-	public ArrayList<TogicTvChannelType> listItems = null;
-	TogicTvChannelType CurrentChannel;
-	public int currentUrlPos = 0;
-	public int currentChannelPos = 0;
+	TvChannel tvChannel = null;
+	private PopupWindow mPopupWindow;
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//检测Vitamio是否解压解码包
+
+		// ~~~ 检测Vitamio是否解压解码包
 		if (!LibsChecker.checkVitamioLibs(this))
 			return;
-		mContext = this;
-		scale = getResources().getDisplayMetrics().density;
+
 		// ~~~ 获取播放地址和标题
-		listItems = (ArrayList<TogicTvChannelType>) getIntent()
-				.getSerializableExtra("listchannel");
-		CurrentChannel = listItems.get(currentChannelPos);
-		mPath = CurrentChannel.getUrls().get(currentUrlPos);
-		mTitle = CurrentChannel.getTitle();
-		// mPath = (String) getIntent().getStringExtra("path");
-		// mTitle = (String) getIntent().getStringExtra("title");
+		mPath = (String) getIntent().getStringExtra("path");
+		mTitle = (String) getIntent().getStringExtra("title");
 		// ~~~ 绑定控件
 		setContentView(R.layout.videoview);
-		Parent = (RelativeLayout)findViewById(R.id.checkparent);
 		mVideoView = (VideoView) findViewById(R.id.surface_view);
 		mVolumeBrightnessLayout = findViewById(R.id.operation_volume_brightness);
 		mOperationBg = (ImageView) findViewById(R.id.operation_bg);
@@ -117,100 +95,6 @@ public class Togic_Live_Select_VideoPlayer extends Activity implements
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 	}
 
-	// 创建一个包含自定义ListView的PopupWindow
-	private PopupWindow makePopupWindow(Context cx) {
-		PopupWindow window;
-		window = new PopupWindow(cx);
-		ItemAdapter apAdapter = new ItemAdapter(cx, listItems);
-		View view = LayoutInflater.from(cx).inflate(R.layout.togic_select_pop,
-				null);
-		window.setContentView(view);
-		ListView listView = (ListView) view.findViewById(R.id.togic_pop_list);
-		listView.setAdapter(apAdapter);
-		listView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				currentChannelPos = position;
-				CheckChannel();
-			}
-		});
-		window.setWidth(dip2px(150));
-		window.setHeight(dip2px(230));
-		// 设置PopupWindow外部区域是否可触
-		window.setFocusable(true);
-		window.setTouchable(true);
-		window.setOutsideTouchable(true);
-		return window;
-	}
-	public void CheckChannel(){
-		CurrentChannel = listItems.get(currentChannelPos);
-		mTitle = CurrentChannel.getTitle();
-		mPath = CurrentChannel.getUrls().get(currentUrlPos);
-		if (mPath.startsWith("http:")) {
-			mVideoView.setVideoURI(Uri.parse(mPath));
-		} else {
-			mVideoView.setVideoPath(mPath);
-		}
-	}
-	public static float scale;//dp -- px
-	public static int dip2px(float dpValue) {  
-        return (int)(dpValue * scale + 0.5f);
-    }
-	class ItemAdapter extends BaseAdapter {
-		public List<TogicTvChannelType> listItems;
-		private LayoutInflater mLayoutInflater;
-
-		public ItemAdapter(Context context, List<TogicTvChannelType> list) {
-			mLayoutInflater = (LayoutInflater) context
-					.getSystemService("layout_inflater");
-			listItems = list;
-		}
-
-		@Override
-		public int getCount() {
-			if (listItems != null) {
-				return listItems.size();
-			} else {
-				return 0;
-			}
-		}
-		@Override
-		public Object getItem(int position) {
-			return listItems.get(position);
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View view, ViewGroup parent) {
-			ViewHolder viewHolder;
-			if (view == null) {
-				viewHolder = new ViewHolder();
-				view = mLayoutInflater.inflate(R.layout.togic_select__item_pop, null);
-				viewHolder.num = (TextView) view
-						.findViewById(R.id.togic_pop_num);
-				viewHolder.channel_name = (TextView) view
-						.findViewById(R.id.togic_pop_channel_name);
-				view.setTag(viewHolder);
-			} else {
-				viewHolder = (ViewHolder) view.getTag();
-			}
-			TogicTvChannelType channelType = listItems.get(position);
-			viewHolder.num.setText(channelType.getNum() + "");
-			viewHolder.channel_name.setText(channelType.getTitle());
-			return view;
-		}
-
-		class ViewHolder {
-			TextView num;
-			TextView channel_name;
-		}
-	}
-
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -232,10 +116,21 @@ public class Togic_Live_Select_VideoPlayer extends Activity implements
 			mVideoView.stopPlayback();
 	}
 
+	/**
+	 * 关闭popwindow
+	 */
+	public void dismiss() {
+		if (mPopupWindow != null) {
+			mPopupWindow.dismiss();
+			mPopupWindow = null;
+		}
+	}
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+
 		if (mGestureDetector.onTouchEvent(event))
 			return true;
+
 		// 处理手势结束
 		switch (event.getAction() & MotionEvent.ACTION_MASK) {
 		case MotionEvent.ACTION_UP:
@@ -272,10 +167,9 @@ public class Togic_Live_Select_VideoPlayer extends Activity implements
 
 		@Override
 		public boolean onSingleTapUp(MotionEvent e) {
-			PopupWindow pop = makePopupWindow(mContext);
-			pop.showAtLocation(Parent, Gravity.LEFT|Gravity.TOP, 10, 10);
+
 			return true;
-//			 return super.onSingleTapUp(e);
+			// return super.onSingleTapUp(e);
 		}
 
 		/** 滑动 */
@@ -377,6 +271,7 @@ public class Togic_Live_Select_VideoPlayer extends Activity implements
 
 	@Override
 	public void onCompletion(MediaPlayer player) {
+		finish();
 	}
 
 	private void stopPlayer() {

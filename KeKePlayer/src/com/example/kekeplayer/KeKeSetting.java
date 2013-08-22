@@ -2,9 +2,6 @@ package com.example.kekeplayer;
 
 public abstract interface KeKeSetting {
 	public static final int AREAR_NOCONTENT_HEIGHT = 120;
-	  public static final String CACHE_IMAGE_DIR = "temp/";
-	  public static final String CACHE_ROOT_DIR = "/CBox/";
-	  public static final String CACHE_VIDEO_DIR = "video_download/";
 	  public static final String CHANNEL_DIANSHIJU = "2";
 	  public static final String CHANNEL_DIANYING = "1";
 	  public static final String CHANNEL_DONGHUAPIAN = "20";
@@ -15,7 +12,6 @@ public abstract interface KeKeSetting {
 	  public static final int COLUMN_IMAGE_HEIGHT = 120;
 	  public static final int COLUMN_IMAGE_WIDTH = 160;
 	  public static final String CURRENT_TV_CHANNEL = "current_tv_channel";
-	  public static final String DATA_HOST = "http://api.cbox.cntv.cn/stat/startup";
 	  public static final boolean DEBUG = false;
 	  public static final int DIALOG_NETALERT = 16908313;
 	  public static final int EXIT_TIP = 17170446;
@@ -44,9 +40,6 @@ public abstract interface KeKeSetting {
 	  public static final int NORMAL_IMAGE_WIDTH = 120;
 	  public static final String PAGE_SIZE = "30";
 	  public static final String PID = "GC3ueQnxE8PrWVRkmaUvsJHZqNiXpgdz";
-	  public static final String PLAY_DATA_HOST = "http://api.cbox.cntv.cn/stat/video";
-	  public static final String SERVER_HOST = "http://api.cbox.cntv.cn/api/";
-	  public static final String VV_HOST = "http://api.cbox.cntv.cn/stat/vv";
 	  public static final String class_aixiyou = "CLASS025";
 	  public static final String class_dianshiju = "CLASS006";
 	  public static final String class_dianying = "CLASS007";

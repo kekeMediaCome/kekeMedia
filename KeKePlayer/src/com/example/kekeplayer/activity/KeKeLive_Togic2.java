@@ -32,7 +32,7 @@ import android.widget.ListView;
 public class KeKeLive_Togic2 extends AbsListViewBaseActivity implements
 		OnItemClickListener {
 	public ProgressDialog progressDialog;
-	public List<TogicTvChannel2Type> listItems = null;
+	public static List<TogicTvChannel2Type> listItems = null;
 	DisplayImageOptions options;
 	private ItemAdapter itemAdapter;
 
@@ -65,7 +65,9 @@ public class KeKeLive_Togic2 extends AbsListViewBaseActivity implements
 		protected Void doInBackground(Void... paramArrayOfVoid) {
 			TogicTvChannel2DAO dao = new TogicTvChannel2DAO();
 			try {
-				listItems = dao.getTvChannel();
+				if (listItems == null) {
+					listItems = dao.getTvChannel();
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

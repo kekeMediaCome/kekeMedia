@@ -3,6 +3,7 @@ package com.example.kekeplayer.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.kekeplayer.KeKeApp;
 import com.example.kekeplayer.R;
 import com.example.kekeplayer.adapter.KeKeChannelListViewAdapter;
 import com.example.kekeplayer.dao.MediaTypeDAO;
@@ -110,7 +111,7 @@ public class KeKePlayer extends AbsListViewBaseActivity implements OnCheckedChan
 		protected Void doInBackground(Void... paramArrayOfVoid) {
 			try {
 				MediaTypeDAO mediaTypeDAO = new MediaTypeDAO();
-				mMediaTypesList = mediaTypeDAO.getMediaTypes();
+				mMediaTypesList = mediaTypeDAO.getMediaTypes(KeKeApp.uri,"?pid=");
 				TvChannelDAO localTvChannelDAO = new TvChannelDAO();
 				int size = mMediaTypesList.size();
 				for (int i = 0; i < size; i++) {

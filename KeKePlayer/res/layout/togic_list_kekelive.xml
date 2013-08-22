@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/kekeliveparent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/turnk"
-    android:orientation="vertical" >
+    android:background="@drawable/cbox_ucenter_category_bg">
 
     <ListView
-        android:id="@+id/togic_pop_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/togic_list_select"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
         android:layout_marginTop="0.0dip"
-        android:background="#082f2f2f"
+        android:background="#ff2f2f2f"
         android:cacheColorHint="#00000000"
         android:divider="@drawable/cbox_uc_divider"
         android:fadeScrollbars="false"
@@ -20,4 +20,4 @@
         android:scrollbars="none"
         android:scrollingCache="false" />
 
-</LinearLayout>
+</RelativeLayout>

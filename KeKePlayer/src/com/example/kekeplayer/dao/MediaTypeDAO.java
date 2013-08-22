@@ -8,17 +8,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.kekeplayer.KeKeApp;
+import com.example.kekeplayer.KeKeSetting;
 import com.example.kekeplayer.parse.josn.MediaTypeParse;
 import com.example.kekeplayer.type.MediaType;
 import com.example.kekeplayer.utils.JSONUtils;
 import com.example.kekeplayer.utils.https.HttpApiImpl;
 
 public class MediaTypeDAO {
-	public List<MediaType> getMediaTypes() throws JSONException {
+	public List<MediaType> getMediaTypes(String uri,String type) throws JSONException {
 		List<MediaType> list = new ArrayList<MediaType>();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("http://api.cbox.cntv.cn/api/").append("mediatype_list")
-				.append("?pid=").append("GC3ueQnxE8PrWVRkmaUvsJHZqNiXpgdz")
+		buffer.append(uri).append(KeKeSetting.IFACE_GET_MEDIA_TYPE)
+				.append(type).append(KeKeSetting.PID)
 				.append("&version=");
 		buffer.append(KeKeApp.getVersion());
 		String url = buffer.toString();

@@ -18,7 +18,7 @@ public class ProgramsDAO implements KeKeSetting{
 	public List<Programs> getPrograms(String channelid, String currentdate){
 		List<Programs> list = new ArrayList<Programs>();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("http://api.cbox.cntv.cn/api/").append("program_list").append("?pid=").append("GC3ueQnxE8PrWVRkmaUvsJHZqNiXpgdz").append("&version=");
+		buffer.append(KeKeApp.uri).append("program_list").append("?pid=").append("GC3ueQnxE8PrWVRkmaUvsJHZqNiXpgdz").append("&version=");
 		buffer.append(KeKeApp.getVersion()).append("&channelid=").append(channelid).append("&currentdate=").append(currentdate);
 		String url = buffer.toString();
 		try {

@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView.ScaleType;
+import android.widget.Toast;
 
 public class KeKeMedia extends Activity implements OnItemClickListener {
 	private ViewPager viewPager; // android-support-v4中的滑动组件
@@ -99,6 +100,11 @@ public class KeKeMedia extends Activity implements OnItemClickListener {
 		keKeMediaAdapter.setListProject(list);
 		listView.setAdapter(keKeMediaAdapter);
 		listView.setOnItemClickListener(this);
+		Info();
+	}
+	public void Info(){
+		Toast toast = Toast.makeText(this, "本栏目所有资源均来自互联网，仅供学习和交流，\n如果有侵权行为，请告诉我，暂停你们的链接", Toast.LENGTH_LONG);
+		toast.show();
 	}
 
 	@Override

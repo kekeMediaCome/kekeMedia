@@ -13,7 +13,7 @@ public class ProjectTypeDAO {
 	public List<ProjectType> getProjectTypes() {
 		List<ProjectType> list = new ArrayList<ProjectType>();
 		try {
-			String json_result = "{\"result\":[{\"name\":\"推荐应用\", \"class\":\"com.example.kekeplayer.activity.KeKePlayer\"}, {\"name\":\"回看\", \"class\":\"com.example.kekeplayer.activity.KeKePlayer\"}, {\"name\":\"CUTV直播\", \"class\":\"com.example.kekeplayer.activity.KeKeLive_Cutv\"}, {\"name\":\"Togic直播\", \"class\":\"com.example.kekeplayer.activity.KeKeLive_Togic\"}, {\"name\":\"Togic2直播\", \"class\":\"com.example.kekeplayer.activity.KeKeLive_Togic2\"}, {\"name\":\"本地视频播放\", \"class\":\"com.example.kekeplayer.activity.KeKeLocal\"} ]}"; // new
+			String json_result = "{\"result\":[{\"name\":\"推荐应用\", \"class\":\"com.example.kekeplayer.activity.KeKePlayer\"}, {\"name\":\"回看\", \"class\":\"com.example.kekeplayer.activity.KeKePlayer\"}, {\"name\":\"CU直播\", \"class\":\"com.example.kekeplayer.activity.KeKeLive_Cutv\"}, {\"name\":\"快捷直播-播放界面切换频道\", \"class\":\"com.example.kekeplayer.activity.KeKeLive_Togic\"}, {\"name\":\"捷2直播-显示频道图标\", \"class\":\"com.example.kekeplayer.activity.KeKeLive_Togic2\"}, {\"name\":\"本地视频播放\", \"class\":\"com.example.kekeplayer.activity.KeKeLocal\"} ]}"; // new
 			// HttpApiImpl().doHttpGet(url);
 			JSONObject result = new JSONObject(json_result);// JSONUtils.getBodyAndCheckHeader(url,
 															// json_result);

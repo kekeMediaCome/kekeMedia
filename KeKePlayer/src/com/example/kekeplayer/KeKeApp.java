@@ -24,6 +24,7 @@ public class KeKeApp extends Application {
 	public static final int HISTORY_MAX = 15;
 	public static final int REMIND_MAX = 15;
 	public static final int SUBSCIBE_MAX = 15;
+	public static final String uri = "http://api.cbox.cntv.cn/api/";
 	public static Context context;
 	public static Handler handler;
 	private static List<ChannelInfo> mChannelInfoList;
