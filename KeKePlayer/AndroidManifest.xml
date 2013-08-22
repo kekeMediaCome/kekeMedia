@@ -91,6 +91,12 @@
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
+         <activity
+            android:name="com.example.kekeplayer.player.Togic_Live_Select_VideoPlayer"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"
             android:configChanges="orientation|keyboardHidden|navigation"

@@ -1,10 +1,10 @@
 package com.example.kekeplayer.player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.kekeplayer.R;
 import com.example.kekeplayer.type.TogicTvChannelType;
-import com.example.kekeplayer.type.TvChannel;
 
 import io.vov.vitamio.LibsChecker;
 import io.vov.vitamio.MediaPlayer;
@@ -32,8 +32,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.PopupWindow;
+import android.widget.TextView;
 
 @SuppressLint("HandlerLeak")
 public class Togic_Live_Select_VideoPlayer extends Activity implements
@@ -57,8 +56,11 @@ public class Togic_Live_Select_VideoPlayer extends Activity implements
 	private GestureDetector mGestureDetector;
 	private MediaController mMediaController;
 	private View mLoadingView;
-	TvChannel tvChannel = null;
-
+	public ArrayList<TogicTvChannelType> listItems = null;
+	TogicTvChannelType CurrentChannel;
+	public int currentUrlPos = 0;
+	public int currentChannelPos = 0;
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,8 +69,12 @@ public class Togic_Live_Select_VideoPlayer extends Activity implements
 			return;
 
 		// ~~~ 获取播放地址和标题
-		mPath = (String) getIntent().getStringExtra("path");
-		mTitle = (String) getIntent().getStringExtra("title");
+		listItems = (ArrayList<TogicTvChannelType>)getIntent().getSerializableExtra("listchannel");
+		CurrentChannel = listItems.get(currentChannelPos);
+		mPath = CurrentChannel.getUrls().get(currentUrlPos);
+		mTitle = CurrentChannel.getTitle();
+//		mPath = (String) getIntent().getStringExtra("path");
+//		mTitle = (String) getIntent().getStringExtra("title");
 		// ~~~ 绑定控件
 		setContentView(R.layout.videoview);
 		mVideoView = (VideoView) findViewById(R.id.surface_view);
@@ -100,27 +106,30 @@ public class Togic_Live_Select_VideoPlayer extends Activity implements
 	}
 
 	//创建一个包含自定义ListView的PopupWindow
-	private PopupWindow makePopupWindow(Context cx){
-		PopupWindow window;
-		window = new PopupWindow(cx);
-		ItemAdapter apAdapter = new ItemAdapter();
-		View view = LayoutInflater.from(cx).inflate(R.layout.togic_select_pop, null);
-		window.setContentView(view);
-		ListView listView = (ListView)view.findViewById(R.id.togic_pop_list);
-		
-		
-		
-		
-		
-		
-		return window;
-	}
+//	private PopupWindow makePopupWindow(Context cx){
+//		PopupWindow window;
+//		window = new PopupWindow(cx);
+//		ItemAdapter apAdapter = new ItemAdapter(cx);
+//		View view = LayoutInflater.from(cx).inflate(R.layout.togic_select_pop, null);
+//		window.setContentView(view);
+//		ListView listView = (ListView)view.findViewById(R.id.togic_pop_list);
+//		
+//		
+//		
+//		
+//		
+//		
+//		return window;
+//	}
 	
 	class ItemAdapter extends BaseAdapter {
 		public List<TogicTvChannelType> listItems;
-		public ItemAdapter(){
-			
+		private LayoutInflater mLayoutInflater;
+		public ItemAdapter(Context context, List<TogicTvChannelType> list){
+			mLayoutInflater  = (LayoutInflater)context.getSystemService("layout_inflater"); 
+			listItems = list;
 		}
+		
 		@Override
 		public int getCount() {
 			if (listItems != null) {
@@ -139,13 +148,25 @@ public class Togic_Live_Select_VideoPlayer extends Activity implements
 		public long getItemId(int position) {
 			return position;
 		}
-
 		@Override
 		public View getView(int position, View view, ViewGroup parent) {
-			
-			return null;
+			ViewHolder viewHolder;
+			if (view == null) {
+				viewHolder = new ViewHolder();
+				view = mLayoutInflater.inflate(R.layout.togic_select__item_pop, null);
+				viewHolder.num = (TextView)view.findViewById(R.id.togic_pop_num);
+				viewHolder.channel_name = (TextView)view.findViewById(R.id.togic_pop_channel_name);
+				view.setTag(viewHolder);
+			}else {
+				viewHolder = (ViewHolder)view.getTag();
+			}
+			return view;
 		}
 		
+		class ViewHolder{
+			TextView num;
+			TextView channel_name;
+		}
 	}
 	
 	@Override

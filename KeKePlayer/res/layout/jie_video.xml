@@ -44,6 +44,8 @@
         android:layout_gravity="center"
         android:paddingRight="0dip"
         android:scaleType="fitXY"
-        android:src="@drawable/alphabet_scroller_bg" />
+        android:src="@drawable/alphabet_scroller_bg" 
+        android:contentDescription="@string/descr_image"
+        />
 
 </LinearLayout>

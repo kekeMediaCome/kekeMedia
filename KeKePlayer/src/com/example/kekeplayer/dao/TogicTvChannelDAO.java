@@ -3,7 +3,6 @@ package com.example.kekeplayer.dao;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,8 +12,8 @@ import com.example.kekeplayer.type.TogicTvChannelType;
 import com.example.kekeplayer.utils.https.HttpUtil;
 
 public class TogicTvChannelDAO {
-	public List<TogicTvChannelType> getTvChannel() {
-		List<TogicTvChannelType> list = new ArrayList<TogicTvChannelType>();
+	public ArrayList<TogicTvChannelType> getTvChannel() {
+		ArrayList<TogicTvChannelType> list = new ArrayList<TogicTvChannelType>();
 		String url = "http://tv.togic.com/api/channels?api=1";
 		InputStream stream = HttpUtil.GetInputStreamFromURL(url);
 		String readString;
