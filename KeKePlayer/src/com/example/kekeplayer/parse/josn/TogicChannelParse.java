@@ -29,6 +29,9 @@ public class TogicChannelParse {
 		}
 		if (paramJSONObject.has("icon")) {
 			String icon = paramJSONObject.getString("icon");
+			if (icon.startsWith("/upload")) {
+				icon = "http://tv.togic.com" + icon;
+			}
 			type.setIcon(icon);
 		}
 		if (paramJSONObject.has("province")) {
