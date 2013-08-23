@@ -74,6 +74,11 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
+         <activity
+            android:name="com.example.kekeplayer.activity.CustomExpand"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity
             android:name="com.example.kekeplayer.activity.KeKeLocal"
             android:configChanges="keyboardHidden|orientation"

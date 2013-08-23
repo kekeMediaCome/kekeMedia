@@ -86,7 +86,9 @@ public class JieLiveVideoPlayer extends Activity implements
 		}
 		// 设置显示名称
 		mMediaController = new MediaController(this);
-		mMediaController.setFileName(mTitle);
+		if (mTitle != null) {
+			mMediaController.setFileName(mTitle);
+		}
 		mVideoView.setMediaController(mMediaController);
 		mVideoView.requestFocus();
 		 
