@@ -7,11 +7,12 @@ import android.os.Parcelable;
 @SuppressLint("ParcelCreator")
 public class MovieType implements Parcelable{
 
-	private String movie_img;
-	private String movie_type;
-	private String movie_time;
-	private String movie_name;
-	private String movie_langure;
+	private String movie_img = "";
+	private String movie_type= "";
+	private String movie_time= "";
+	private String movie_name= "";
+	private String movie_langure= "";
+	private String movie_url = "";
 	
 	public MovieType(){
 		
@@ -33,6 +34,7 @@ public class MovieType implements Parcelable{
 		dest.writeString(movie_time);
 		dest.writeString(movie_name);
 		dest.writeString(movie_langure);
+		dest.writeString(movie_url);
 	}
 	
 	public void readFromParcel(Parcel in){
@@ -41,6 +43,7 @@ public class MovieType implements Parcelable{
 		movie_time = in.readString();
 		movie_name = in.readString();
 		movie_langure = in.readString();
+		movie_url = in.readString();
 	}
 	
 	public static final Parcelable.Creator<MovieType> CREATOR = new Parcelable.Creator<MovieType>() {
@@ -95,6 +98,14 @@ public class MovieType implements Parcelable{
 
 	public void setMovie_langure(String movie_langure) {
 		this.movie_langure = movie_langure;
+	}
+
+	public String getMovie_url() {
+		return movie_url;
+	}
+
+	public void setMovie_url(String movie_url) {
+		this.movie_url = movie_url;
 	}
 
 	

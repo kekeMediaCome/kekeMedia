@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.example.kekeplayer.R;
 import com.example.kekeplayer.type.MovieType;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,8 +20,21 @@ public class KeKeMovie_Adapter extends BaseAdapter{
 
 	private List<MovieType> listItems;
 	private LayoutInflater inflater;
-	public KeKeMovie_Adapter(Context context){
+	DisplayImageOptions options;
+	ImageLoader imageLoader;
+	public KeKeMovie_Adapter(Context context, ImageLoader imageLoader){
 		inflater = LayoutInflater.from(context);
+		options = new DisplayImageOptions.Builder()
+		.showStubImage(R.drawable.ic_stub)
+		.showImageForEmptyUri(R.drawable.ic_empty)
+		.showImageOnFail(R.drawable.ic_error).cacheInMemory(true)
+		.cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(20))
+		.build();
+	}
+	
+	public void setListItem(List<MovieType> list){
+		listItems = list;
+		notifyDataSetChanged();
 	}
 	
 	@Override
@@ -58,7 +74,11 @@ public class KeKeMovie_Adapter extends BaseAdapter{
 		}
 		
 		MovieType movieType = listItems.get(position);
-		
+		viewHolder.movie_type.setText(position+"");
+		viewHolder.movie_time.setText(movieType.getMovie_time());
+		viewHolder.movie_name.setText(movieType.getMovie_name());
+		viewHolder.movie_langure.setText(movieType.getMovie_langure());
+//		imageLoader.displayImage(movieType.getMovie_img(), viewHolder.movie_img, options);
 		return convertView;
 	}
 	

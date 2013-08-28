@@ -1,5 +1,6 @@
 package com.example.kekeplayer.activity;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +17,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -34,7 +36,7 @@ public class CustomExpand extends Activity implements OnChildClickListener{
 		setContentView(R.layout.customexpandablelistview);
 		groupArray = new ArrayList<String>();
 		childArray = new ArrayList<List<String[]>>();
-		ReadSelfChannel("tv.txt");
+		ReadSelfChannel("kekePlayer/tvlist.txt");
 		listView = (ExpandableListView) findViewById(R.id.expandableListView);
 		adapter = new CustomExpandableAdapter(this, groupArray, childArray);
 		listView.setAdapter(adapter);
@@ -44,6 +46,7 @@ public class CustomExpand extends Activity implements OnChildClickListener{
 	
 	public void ReadSelfChannel(String filename){
 		String path = null;
+		String code = "GBK";
 		File file = null;
 		boolean sdCardExist = Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
 		if (sdCardExist) {
@@ -60,9 +63,15 @@ public class CustomExpand extends Activity implements OnChildClickListener{
 			return;
 		}
 		try {
+			// 探测txt文件的编码格式
+			code = codeString(path);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		try {
 			InputStream inStream = new FileInputStream(file);
 			if (inStream != null) {
-				InputStreamReader inputreader = new InputStreamReader(inStream);
+				InputStreamReader inputreader = new InputStreamReader(inStream, code);
 				 BufferedReader buffreader = new BufferedReader(inputreader);
 				 String line;
 				 String[] splitArray;
@@ -114,7 +123,40 @@ public class CustomExpand extends Activity implements OnChildClickListener{
 		}
 		return -1;
 	}
+	/**
+	 * 判断文件的编码格式
+	 * 
+	 * @param fileName
+	 *            :file
+	 * @return 文件编码格式
+	 * @throws Exception
+	 */
+	private static String codeString(String fileName) throws Exception {
+		BufferedInputStream bin = new BufferedInputStream(new FileInputStream(
+				fileName));
+		int p = (bin.read() << 8) + bin.read();
+		String code = null;
 
+		switch (p) {
+		case 0xefbb:
+			code = "UTF-8";
+			break;
+		case 0xfffe:
+			code = "Unicode";
+			break;
+		case 0xfeff:
+			code = "UTF-16BE";
+			break;
+		default:
+			code = "GBK";
+		}
+
+		bin.close();
+
+		Log.d("Parseutil", "find text code ===>" + code);
+
+		return code;
+	}
 	@Override
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
